@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StillLog 개인정보처리방침</title>
+<meta name="description" content="StillLog는 사용자의 기록을 수집하지 않습니다. 모든 데이터는 기기와 사용자 본인의 iCloud에만 저장됩니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+  /* StillLog 앱과 같은 팔레트(docs/design-tokens.json) — 같은 제품으로 읽히도록 */
+  :root {
+    --bg: #FBF8F3;
+    --surface: #FFFFFF;
+    --surface2: #F3EFE7;
+    --ink: #24211C;
+    --dim: #615B4F;
+    --faint: #9B917E;
+    --line: #E4DCCB;
+    --accent: #C97A32;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1B1916;
+      --surface: #2A2723;
+      --surface2: #242119;
+      --ink: #F3EEE6;
+      --dim: #B9B0A2;
+      --faint: #7C7468;
+      --line: #3A362F;
+      --accent: #E39A54;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(32px, 7vw, 72px) clamp(20px, 5vw, 32px) 96px;
+  }
+
+  header { border-bottom: 1px solid var(--line); padding-bottom: 28px; }
+
+  .app {
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: "Gowun Batang", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5.5vw, 40px);
+    line-height: 1.25;
+    letter-spacing: -.01em;
+    margin: 0 0 14px;
+  }
+
+  .dates { margin: 0; color: var(--faint); font-size: 14px; }
+
+  .summary {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin: 32px 0 0;
+  }
+  .summary p { margin: 0; font-size: 17px; }
+  .summary strong { color: var(--accent); }
+
+  h2 {
+    font-family: "Gowun Batang", Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(20px, 3.6vw, 25px);
+    line-height: 1.3;
+    margin: 52px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 28px 0 6px;
+  }
+
+  p { margin: 0 0 14px; color: var(--dim); }
+  p.lead { color: var(--ink); }
+
+  ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+  /* 항목 내용은 일반 인라인 흐름으로 둡니다 — 예전엔 li를 grid로 만들었는데, "<strong>제목</strong>
+     — 설명" 처럼 강조 뒤에 텍스트가 이어지면 그 텍스트가 별개의 그리드 항목이 되어 다음 줄
+     불릿 칸(14px)으로 밀려 한 글자씩 세로로 쌓였습니다. 불릿은 절대 위치로만 얹습니다. */
+  li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 9px;
+    color: var(--dim);
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: .72em;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--faint);
+  }
+  li strong { color: var(--ink); font-weight: 600; }
+
+  table {
+    width: 100%;
+    /* 좁은 화면에서 칸이 한없이 눌리지 않게 최소 폭을 주고, 모자라면 .table-wrap이
+       가로로 스크롤되게 합니다(본문 전체가 옆으로 밀리지 않습니다). */
+    min-width: 420px;
+    border-collapse: collapse;
+    margin: 0 0 16px;
+    font-size: 15px;
+  }
+  th, td {
+    text-align: left;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface2);
+    font-size: 13.5px;
+  }
+  td { color: var(--dim); }
+  .table-wrap { overflow-x: auto; }
+
+  a { color: var(--accent); }
+
+  .contact {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-top: 16px;
+  }
+  .contact p { margin: 0; }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 14px;
+  }
+
+  .en {
+    margin-top: 80px;
+    padding-top: 8px;
+  }
+  .en h2:first-of-type { margin-top: 24px; }
+  [lang="en"] { font-family: "IBM Plex Sans KR", -apple-system, sans-serif; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="app">StillLog</p>
+    <h1>개인정보처리방침</h1>
+    <p class="dates">시행일 2026년 8월 31일 · 최종 수정 2026년 8월 31일</p>
+  </header>
+
+  <div class="summary">
+    <p><strong>StillLog는 사용자의 정보를 수집하지 않습니다.</strong> 여러분이 남긴 기록·사진·통계는 사용하는 기기와, 여러분 본인의 iCloud 계정에만 저장됩니다. 개발자는 그 내용을 볼 수 없습니다.</p>
+  </div>
+
+  <h2>1. 개발자가 수집하는 정보</h2>
+  <p class="lead">없습니다.</p>
+  <p>StillLog에는 분석 도구, 광고, 추적 기능이 들어 있지 않습니다. 앱은 개발자나 제3자의 서버로 어떤 정보도 보내지 않으며, 실제로 그런 통신을 하는 코드 자체가 없습니다. 사용 기록을 모아 보는 대시보드 같은 것도 개발자에게 없습니다.</p>
+
+  <h2>2. 기기에 저장되는 정보</h2>
+  <p>앱을 쓰는 데 필요한 정보는 전부 기기 안에 저장됩니다.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>정보</th><th>저장 위치</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>다짐·목표·로망 기록, 메모, 태그, 체크 기록, 조회수</td><td>기기 내부 데이터베이스</td></tr>
+      <tr><td>로망에 넣은 사진</td><td>기기 내부 앱 전용 폴더</td></tr>
+      <tr><td>알림 시각, 테마 등 설정값</td><td>기기 내부 데이터베이스</td></tr>
+      <tr><td>잠금 비밀번호</td><td>기기 키체인 (아래 4항 참고)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>3. iCloud 동기화와 백업 (Pro)</h2>
+  <p>Pro를 구매하면 기록을 여러 기기에서 함께 볼 수 있습니다. 이때 데이터는 <strong>사용자 본인의 iCloud 계정 안에 있는 개인 데이터베이스</strong>에 저장됩니다.</p>
+  <ul>
+    <li>Apple이 제공하는 CloudKit 개인 데이터베이스를 사용하며, <strong>개발자는 이 영역에 접근할 권한이 없습니다.</strong> 기술적으로 열람이 불가능합니다.</li>
+    <li>iCloud에 저장된 데이터는 Apple의 개인정보 처리 방침을 따릅니다.</li>
+    <li>동기화를 원치 않으면 Pro를 구매하지 않거나, iOS 설정에서 StillLog의 iCloud 사용을 끄면 됩니다. 이 경우 기록은 기기 안에만 남습니다.</li>
+    <li>수동 백업 기능도 사용자 본인의 iCloud Drive 영역에 파일을 복사하는 방식입니다.</li>
+  </ul>
+
+  <h2>4. 잠금과 비밀함</h2>
+  <ul>
+    <li>잠금 비밀번호는 <strong>평문으로 저장되지 않습니다.</strong> 무작위 값을 섞어 해시로 변환한 뒤 기기 키체인에만 보관하며, 기기 밖으로 나가지 않습니다.</li>
+    <li>비밀함에 넣은 기록의 제목과 내용은 저장될 때 암호화됩니다.</li>
+    <li>Face ID·Touch ID를 켜면 인증은 iOS가 처리하고, 앱은 성공·실패 여부만 전달받습니다. 생체 정보 자체는 앱이 보거나 저장하지 않습니다.</li>
+    <li>비밀번호를 잊으면 개발자도 복구해 드릴 수 없습니다.</li>
+  </ul>
+
+  <h2>5. 구매</h2>
+  <p>Pro 구매는 Apple의 App Store를 통해서만 이루어집니다. 카드 번호를 비롯한 결제 정보는 Apple이 처리하며 <strong>앱과 개발자는 이를 보거나 저장하지 않습니다.</strong> 앱이 아는 것은 "구매했는지 여부" 하나뿐입니다.</p>
+
+  <h2>6. 알림</h2>
+  <p>리마인더·마감 알림·스트릭 경고는 모두 기기 안에서 예약되고 표시되는 로컬 알림입니다. 알림을 보내기 위해 외부 서버를 거치지 않으며, 알림 내용이 기기 밖으로 전송되지 않습니다.</p>
+  <p>Pro의 iCloud 동기화를 쓰는 경우, 다른 기기의 변경 사항을 알리기 위해 Apple의 푸시 서비스가 내용 없는 신호를 보냅니다. 이 신호에는 기록 내용이 담기지 않습니다.</p>
+
+  <h2>7. Apple Watch와 위젯</h2>
+  <ul>
+    <li><strong>Apple Watch</strong> — 짝지어진 본인의 시계로 즐겨찾기 기록의 제목 한두 개만 보냅니다. 시계는 별도의 저장소를 두지 않고, 이 정보는 다른 곳으로 전달되지 않습니다.</li>
+    <li><strong>위젯</strong> — 같은 기기 안의 데이터를 그대로 읽어 표시합니다.</li>
+  </ul>
+
+  <h2>8. 제3자 제공</h2>
+  <p>StillLog는 사용자의 정보를 누구에게도 판매하거나 제공하지 않습니다. 앱에 포함된 외부 구성 요소는 데이터베이스를 다루는 오픈소스 라이브러리(GRDB) 하나뿐이며, 이 라이브러리는 기기 안에서만 동작하고 네트워크 통신을 하지 않습니다.</p>
+
+  <h2>9. 데이터 삭제</h2>
+  <ul>
+    <li><strong>기기의 데이터</strong> — 앱을 삭제하면 기기에 저장된 기록과 사진이 함께 삭제됩니다.</li>
+    <li><strong>iCloud의 데이터</strong> — iOS 설정 › Apple 계정 › iCloud › 저장 공간 관리에서 StillLog의 데이터를 삭제할 수 있습니다.</li>
+    <li>개발자는 사용자의 데이터를 보관하고 있지 않으므로, 삭제를 대신 처리해 드릴 대상이 없습니다.</li>
+  </ul>
+
+  <h2>10. 아동의 개인정보</h2>
+  <p>StillLog는 어떤 연령대의 사용자로부터도 개인정보를 수집하지 않습니다. 따라서 아동의 정보를 별도로 수집하거나 이용하는 일도 없습니다.</p>
+
+  <h2>11. 방침 변경</h2>
+  <p>이 방침이 바뀌면 이 페이지에 새 내용과 시행일을 게시합니다. 수집하는 정보가 생기는 등 중요한 변경이 있을 경우에는 앱 안에서도 안내합니다.</p>
+
+  <h2>12. 문의</h2>
+  <div class="contact">
+    <p>개인정보처리방침에 대한 문의는 아래로 연락해 주세요.<br>
+    <strong>이메일 — catedt@gmail.com</strong></p>
+  </div>
+
+  <!-- ================= English ================= -->
+  <div class="en" lang="en">
+    <h1 style="font-size:clamp(22px,4.2vw,30px)">Privacy Policy</h1>
+    <p class="dates">Effective 31 August 2026 · Last updated 31 August 2026</p>
+
+    <div class="summary">
+      <p><strong>StillLog does not collect your information.</strong> Your entries, photos, and statistics stay on your device and in your own iCloud account. The developer cannot see them.</p>
+    </div>
+
+    <h2>1. What the developer collects</h2>
+    <p class="lead">Nothing.</p>
+    <p>StillLog contains no analytics, no advertising, and no tracking. The app sends no information to the developer or to any third party — there is no code in the app that does so.</p>
+
+    <h2>2. What is stored on your device</h2>
+    <p>Your entries, notes, tags, check history, view counts, photos, and settings are stored in the app's own storage on your device. Your lock passcode is stored in the device Keychain (see section 4).</p>
+
+    <h2>3. iCloud sync and backup (Pro)</h2>
+    <p>With Pro, your entries sync across your devices through the <strong>private database in your own iCloud account</strong>. The developer has no access to that area and cannot read its contents. Data stored in iCloud is governed by Apple's privacy policy. You can turn sync off in iOS Settings, in which case your entries remain only on your device.</p>
+
+    <h2>4. Lock and Vault</h2>
+    <p>Your passcode is never stored in plain text — only a salted hash is kept in the device Keychain, and it never leaves the device. Titles and notes of entries placed in the Vault are encrypted at rest. Face ID and Touch ID are handled by iOS; the app only receives a success or failure result and never sees biometric data. If you forget your passcode, the developer cannot recover it for you.</p>
+
+    <h2>5. Purchases</h2>
+    <p>Pro is purchased through Apple's App Store. Payment details are handled entirely by Apple; neither the app nor the developer sees or stores them. The app only knows whether a purchase exists.</p>
+
+    <h2>6. Notifications</h2>
+    <p>Reminders, deadline alerts, and streak warnings are local notifications scheduled and shown on your device. Their contents are never sent anywhere. If you use iCloud sync, Apple's push service delivers a contentless signal to tell the app that something changed on another device; that signal carries none of your entries.</p>
+
+    <h2>7. Apple Watch and widgets</h2>
+    <p>The Apple Watch app receives only the titles of one or two favorite entries from your paired iPhone, and passes them nowhere else. Widgets read data already on the same device.</p>
+
+    <h2>8. Third parties</h2>
+    <p>StillLog never sells or shares your information. The only third-party component in the app is an open-source database library (GRDB), which runs entirely on device and performs no network communication.</p>
+
+    <h2>9. Deleting your data</h2>
+    <p>Deleting the app removes the entries and photos stored on your device. Data kept in iCloud can be removed in iOS Settings › Apple Account › iCloud › Manage Storage. The developer holds none of your data, so there is nothing for us to delete on your behalf.</p>
+
+    <h2>10. Children</h2>
+    <p>StillLog does not collect personal information from users of any age, including children.</p>
+
+    <h2>11. Changes to this policy</h2>
+    <p>If this policy changes, the updated text and its effective date will be posted on this page. Significant changes will also be announced in the app.</p>
+
+    <h2>12. Contact</h2>
+    <div class="contact">
+      <p>Questions about this policy: <strong>catedt@gmail.com</strong></p>
+    </div>
+  </div>
+
+  <footer>
+    StillLog · 개인정보처리방침 / Privacy Policy
+  </footer>
+
+</div>
+</body>
+</html>
